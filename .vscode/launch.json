@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BinaryConvertor",
+            "request": "launch",
+            "mainClass": "BinaryConvertor",
+            "projectName": "Java-Exploration_bdc2e864"
+        },
+        {
+            "type": "java",
             "name": "ReadFile",
             "request": "launch",
             "mainClass": "ReadFile",
