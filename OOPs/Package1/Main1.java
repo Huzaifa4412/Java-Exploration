@@ -1,0 +1,10 @@
+package Package1;
+
+import Package.Main;
+
+public class Main1 {
+
+    public static void main(String[] args) {
+        System.out.println("Hello world");
+    }
+}

@@ -4,67 +4,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Java learning repository (`Java-Exploration`) containing practice code organized by topic. It serves as a beginner-to-intermediate Java tutorial workspace with examples ranging from basic syntax to OOP concepts, matrix operations, and date/time handling.
-
-**Repository is NOT a production project** - it's an educational workspace with mixed code quality and varying levels of completion.
+Educational Java repository (beginner-to-intermediate) organized by topic. **Not a production project** — expect incomplete exercises, commented-out code, and learning experiments. README.md uses Hindi/English mixed content intentionally.
 
 ---
 
 ## Commands
 
-### Compilation and Execution
+### Standalone files (majority of the repo)
 
 ```bash
-# Compile a single Java file
-javac FileName.java
+# Compile and run separately
+javac FileName.java && java ClassName
 
-# Run a compiled class
-java ClassName
-
-# Compile and run in one command (Java 11+)
+# Single-command run (Java 11+)
 java FileName.java
 
-# For files in packages (e.g., Strings/Strings.java)
-javac Strings/Strings.java
-java Strings.Strings
+# Files with package declarations (must run from parent of package dir)
+javac Strings/Strings.java && java Strings.Strings
+javac OOPs/Package/Main.java && java Package.Main
 ```
 
-**Important**: The class name must match the filename for public classes. When running compiled classes, use the fully qualified name (package.ClassName).
+### Maven subproject (Maven-Exploration/demo/)
+
+```bash
+cd Maven-Exploration/demo
+mvn compile exec:java          # compile & run main class (com.example.App)
+mvn test                       # run JUnit 4 tests
+```
+
+### Gradle subproject (Projects/app/)
+
+```bash
+cd Projects
+./gradlew run                  # run main class (org.example.App)
+./gradlew test                 # run JUnit Jupiter tests
+```
 
 ---
 
 ## Architecture and Structure
 
-### Directory Organization
+Topic-based flat organization. Each subdirectory is a self-contained topic module:
 
-The repository follows a topic-based organization:
+- **Root**: Core Java basics (Variables, DataTypes, InputOutput, TypeCasting, Factorials, HelloWorld)
+- **Loops/**: Loop constructs and nested loop examples
+- **Arrays/**: Array operations (IntroArray, MaxValueFinder, SumOfArray, SearchingArray)
+- **Strings/**: String manipulation and StringBuilder — uses `package Strings;`
+- **OOPs/**: Object-oriented programming (classes, constructors, `static`, `this` keyword, packages)
+- **Matrix-problems/**: 2D array algorithms (multiplication, magic square)
+- **Date And Time Module/**: `java.time` API examples
+- **File-Handling/**: File I/O with FileWriter and BufferedReader
+- **Projects/**: Gradle-based project scaffold (Java 21, Guava, JUnit Jupiter)
+- **Maven-Exploration/demo/**: Maven-based project scaffold (Java 17, JUnit 4, Jansi)
+- **UBIT-Assignments/**: University assignments (binary conversion)
+- **Practise/**: Incomplete practice exercises
 
-- **Root directory**: Basic Java concepts (Variables.java, DataTypes.java, Loops.java, InputOutput.java, TypeCasting.java, HelloWorld.java)
-- **Strings/**: String manipulation and StringBuilder examples
-- **Matrix-problems/**: 2D array algorithms (MatrixMultiplication.java, MagicSquareMatrix.java)
-- **Date And Time Module/**: Java time API examples (DateAndTime.java, DayFinder2026.java)
-- **Practise/**: Practice exercises and incomplete code
+### Compilation gotchas
 
-### Code Conventions Observed
-
-- Most files use **no package declaration** (except `Strings/Strings.java` which uses `package Strings;`)
-- Class names match filenames for public classes
-- Mixed access modifiers (some classes are package-private)
-- Main method pattern: `public static void main(String[] args)`
-
-### Key Patterns
-
-1. **Input handling**: Uses `java.util.Scanner` with `System.in` for user input
-2. **Output**: Uses `System.out.println()` for output (note: some files incorrectly use `System.err.println()`)
-3. **2D arrays**: Matrix problems use nested loops with `int[][]` syntax
-4. **Modern Java**: Date/time module uses `java.time` API (LocalDate) instead of legacy Date class
-
----
-
-## Important Notes
-
-- **No build system**: This repository uses raw `javac` compilation - no Maven, Gradle, or other dependency management
-- **Mixed code quality**: Expect incomplete exercises, commented-out code, and learning experiments
-- **Language**: README.md contains Hindi/English mixed content - this is intentional for the learning context
-- **Class/file naming**: When creating new files, ensure the public class name matches the filename
-- **Package usage**: Only add package declarations if organizing into subdirectories that mirror the package structure
+- **Class name conflicts in OOPs/**: Multiple files (`CommanMistakes.java`, `TestCase.java`, `ThisKeyWord.java`) each define a package-private class named `Test`. These files **cannot be compiled together** — compile and run them individually.
+- **`System.err` vs `System.out`**: Several OOPs files use `System.err.println()` where `System.out.println()` was likely intended. Both work but `err` output may appear out of order with `out`.
+- Class name must match filename for `public` classes. Helper classes in the same file must be package-private (no `public` modifier).
+- Most files have **no package declaration**. Only `Strings/`, `OOPs/Package/`, and `OOPs/Package1/` use packages.
